@@ -17,18 +17,23 @@ import pandas as pd
 
 
 class GradientDescent:
-    def __init__(self, x_data, y_data_array):
+    def __init__(self, x_data, y_data_array, learning_rate, iterations):
         """ Run gradient descent algorithm on input data
             :param x_data: input x values in form of a pandas dataframe with n columns where n is the number of features
             :param y_data_array: input y values in form of a numpy array
+            :param learning_rate: algorithm learning rate
+            :param iterations: number of iterations
         """
-        thetas = self.gradient_descent(x_data = x_data, y_data_array = y_data_array)
+        thetas = self.gradient_descent(x_data = x_data, y_data_array = y_data_array, learning_rate = learning_rate, iterations = iterations)
         print('Found optimal values for thetas: {0}'.format(thetas))
 
-    def gradient_descent(self, x_data, y_data_array):
+    def gradient_descent(self, x_data, y_data_array, learning_rate, iterations):
         """
             :param x_data: input x values in form of a pandas dataframe with n columns where n is the number of features
             :param y_data_array: input y values in form of a numpy array
+            :param learning_rate: algorithm learning rate
+            :param iterations: number of iterations
+
             :return thetas: final estimated values for thetas
         """
         # Add x_0 column to the input dataframe (x_0 is always 1)
@@ -42,11 +47,9 @@ class GradientDescent:
         sample_size = x_data.shape[0]
         feature_size = x_data.shape[1]
         thetas = np.array(feature_size * [0.0])
-        learning_rate = 0.1
-        total_iterations = 1000
         iter_count = 0
 
-        while iter_count < total_iterations:
+        while iter_count < iterations:
 
             # Get h_theta values (predictions)
             h_theta = self.hypothesis_function(thetas, x_data_array)
@@ -95,4 +98,6 @@ x_data = pd.DataFrame([this_tuple for this_tuple in data_tuples], columns = ['x_
 y_data_array = np.array([0.0, 1.0, 2.0, 3.0])
 
 # Get the best estimated theta values using gradient descent
-new_gradient_descent = GradientDescent(x_data = x_data, y_data_array = y_data_array)
+learning_rate = 0.1
+iterations = 1000
+new_gradient_descent = GradientDescent(x_data = x_data, y_data_array = y_data_array, learning_rate = learning_rate, iterations =  iterations)
